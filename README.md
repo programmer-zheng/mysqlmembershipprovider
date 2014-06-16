@@ -1,8 +1,8 @@
-MySql SimpleMembership Provider for ASP.NET MVC 4
+MySql SimpleMembership Provider for ASP.NET MVC and WCF
 =================================================
 
 
-with Entity Framework 5.x CodeFirst
+with Entity Framework 6.x CodeFirst
 -----------------------------------
 
 # License
@@ -10,11 +10,10 @@ with Entity Framework 5.x CodeFirst
 Apache License 2.0
 
 # Libraries
-* MySql.Data.Extension : MySql Entity Framework Extension for Entity Framework Code First
 * MySql.Web.Extension : MySql SimpleMembership Provider for Entity Framework Code First
 
 # Samples
-* SimpleMembershipTest : ASP.NET MVC 4 Simple Membership sample web site
+* SimpleMembershipTest : ASP.NET MVC Simple Membership sample web site
 * SimpleMembership.Dac : SimpleMembership Data access control
 
 
@@ -22,47 +21,46 @@ Apache License 2.0
 
 > Install package by NuGet Package management 
 
-  * Entity Framework 5.x above
-  * MySql.Net 6.6.4 above
+  * Entity Framework 6.x above
+  * MySql.Net 6.8.3 above
 
 ######  In app.config
 
 ```xml
 <connectionStrings>
-  <add name="SimpleMembershipTestDbContext"
+  <add name="SimpleMembershipConnection"
 		 connectionString="server=localhost;port=3306;database=SimpleMembershipTest;User Id=dev;Password=thePassword;Persist Security Info=True;"
 		 providerName="MySql.Data.MySqlClient" />
 </connectionStrings>
 ```
 
 ```xml
-<entityFramework>
-	<defaultConnectionFactory type="MySql.Data.MySqlClient.MySqlClientFactory,MySql.Data" />
-</entityFramework>
+  <entityFramework  codeConfigurationType="MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6">
+
+  </entityFramework>
 ```
 
 ```xml
-<system.data>
+  <system.data>
 	<DbProviderFactories>
-		<remove invariant="MySql.Data.MySqlClient" />
-		<add name="MySQL Data Provider"
-			 invariant="MySql.Data.MySqlClient"
-			 description=".Net Framework Data Provider for MySQL"
-			 type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=6.6.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+	  <remove name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" />
+	  <add name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" description=".Net Framework Data Provider for MySQL" 
+	  type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
 	</DbProviderFactories>
-</system.data>
+  </system.data>
 ```
 
 ###### DbContext class inherited MySqlDbContext
 
-```java
-public class SimpleMembershipTestDbContext : MySqlDbContext
-{
-		public SimpleMembershipTestDbContext()
-			: base("SimpleMembershipTestDbContext")
+```csharp
+	public class MembershipDbContext : MySqlSecurityDbContext
+	{
+		public MembershipDbContext()
+			: base("SimpleMembershipConnection")//Connection string defined in config
 		{
+
 		}
-}
+	}
 ```
 
 ###### Grant privileges to user
@@ -86,8 +84,8 @@ public class SimpleMembershipTestDbContext : MySqlDbContext
 Step 1.
 > Install package by NuGet Package management 
 
-  * Entity Framework 5.x above
-  * MySql.Net 6.6.4 above
+  * Entity Framework 6.x above
+  * MySql.Net 6.8.3 above
   * Microsoft ASP.NET Razor 2
   * Microsoft ASP.NET Web Pages 2
   * Microsoft ASP.NET Web Pages 2 Data
@@ -98,7 +96,6 @@ Step 2.
 > Reference MySql.Data.Extension project 
 
 Step 3.
-> [Grant privilege to user](https://github.com/xyz37/MySqlSimpleMembershipProvider#grant-privileges-to-user)
 
 ######  In web.config
 
@@ -110,7 +107,6 @@ Step 3.
 ```
 * "mySqlSecurityInheritedContextType" is System.Type.Name and non argument public constructor need.
 <br/>
-see [SimpleMembershipTestDbContext.cs](https://github.com/xyz37/MySqlSimpleMembershipProvider/blob/master/SimpleMembershipTest.Dac/SimpleMembershipTestDbContext.cs)
 
 ```xml
 <connectionStrings>
@@ -140,11 +136,6 @@ see [SimpleMembershipTestDbContext.cs](https://github.com/xyz37/MySqlSimpleMembe
 </system.web>
 ```
 
-```xml
-<entityFramework>
-	<defaultConnectionFactory type="MySql.Data.MySqlClient.MySqlClientFactory,MySql.Data" />
-</entityFramework>
-```
 
 ```xml
 <system.data>
@@ -170,15 +161,7 @@ Inherited MySqlSecurityDbContext class that generate below tables.
   * WebPages_UsersInRoles
   * RoleMemberships
 
-```java
-public class SimpleMembershipTestDbContext : MySqlSecurityDbContext
-{
-		public SimpleMembershipTestDbContext()
-			: base("SimpleMembershipTestDbContext")
-		{
-		}
-}
-```
+
 
 # Sample Project Screenshot
 
@@ -193,11 +176,10 @@ public class SimpleMembershipTestDbContext : MySqlSecurityDbContext
 
 ###### Support External login
 
-![SimpleMembership Provider Test Page](https://raw.github.com/xyz37/MySqlSimpleMembershipProvider/master/_ScreenShot/SimpleMembershipProviderTest.png)
-
 
 # Special thanks
 
+* Ki Won Kim's works at https://github.com/xyz37/MySqlSimpleMembershipProvider
 * *Microsoft*, ASP.NET WebStack Source Code: http://aspnetwebstack.codeplex.com/
 * Use SimpleMembership and OAuth with mySQL and bigint or any database and datatype you want: http://fabiocanada.ca/2012/11/24/use-simplemembership-and-oauth-with-any-database-and-datatype/
 * Using Simple Membership Provider with mysql: http://stackoverflow.com/questions/12620922/using-simple-membership-provider-with-mysql
