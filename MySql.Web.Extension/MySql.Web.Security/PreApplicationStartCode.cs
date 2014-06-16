@@ -3,9 +3,7 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Configuration;
-using System.Web;
 using System.Web.Security;
-using System.Web.WebPages;
 using WebMatrix.WebData;
 
 namespace MySql.Web.Security

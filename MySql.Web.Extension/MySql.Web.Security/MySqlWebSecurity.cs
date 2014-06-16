@@ -24,11 +24,9 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Web;
-using System.Web.Routing;
 using System.Web.Security;
 using System.Web.WebPages;
 using MySql.Web.Extension.Resources;
-using WebMatrix.WebData.Resources;
 
 namespace MySql.Web.Security
 {
