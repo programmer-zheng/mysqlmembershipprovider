@@ -42,7 +42,7 @@ namespace SimpleMembershipTest.Filters
 						}
 					}
 
-					MySqlWebSecurity.InitializeDatabaseConnection("SimpleMembershipTestDbContext");
+					MySqlWebSecurity.InitializeDatabaseConnection("MembershipConnection");
 
 					const string ADMIN_ROLES = "Administrators";
 					const string ADMIN_USER = "admin";

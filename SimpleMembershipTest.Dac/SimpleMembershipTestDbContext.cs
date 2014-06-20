@@ -12,7 +12,7 @@ namespace SimpleMembershipTest.Dac
 	{
 		// public non argument constructor for MySqlSimpleMembershipProvider
 		public SimpleMembershipTestDbContext()
-			: base("SimpleMembershipTestDbContext")
+            : base("MembershipConnection")
 		{
 		}
 

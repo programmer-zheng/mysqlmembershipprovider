@@ -17,7 +17,7 @@ namespace SimpleMembershipTest.Dac
 
 				Console.WriteLine("user count: {0}", count);
 
-				MySqlWebSecurity.InitializeDatabaseConnection("SimpleMembershipTestDbContext");
+                MySqlWebSecurity.InitializeDatabaseConnection("MembershipConnection");
 
 				int userId = MySqlWebSecurity.GetUserId("admin");
 
